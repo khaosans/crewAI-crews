@@ -1,0 +1,102 @@
+2024-08-13 03:36:03,956 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-08-13 03:36:03,976 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2024-08-13 03:36:04,079 - werkzeug - WARNING -  * Debugger is active!
+2024-08-13 03:36:04,089 - werkzeug - INFO -  * Debugger PIN: 553-654-300
+2024-08-13 03:36:24,691 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-08-13 03:36:24,702 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2024-08-13 03:36:24,963 - werkzeug - WARNING -  * Debugger is active!
+2024-08-13 03:36:24,969 - werkzeug - INFO -  * Debugger PIN: 553-654-300
+2024-08-13 03:36:59,196 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-08-13 03:36:59,211 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2024-08-13 03:36:59,541 - werkzeug - WARNING -  * Debugger is active!
+2024-08-13 03:36:59,546 - werkzeug - INFO -  * Debugger PIN: 553-654-300
+2024-08-13 03:38:53,064 - werkzeug - INFO -  * Detected change in '/Users/Sour/PycharmProjects/crewAI-examples/game-builder-crew/app.py', reloading
+2024-08-13 03:38:53,928 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2024-08-13 03:38:54,152 - werkzeug - WARNING -  * Debugger is active!
+2024-08-13 03:38:54,158 - werkzeug - INFO -  * Debugger PIN: 553-654-300
+2024-08-13 03:39:11,940 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-08-13 03:39:11,957 - werkzeug - INFO -  * Restarting with watchdog (fsevents)
+2024-08-13 03:39:12,251 - werkzeug - WARNING -  * Debugger is active!
+2024-08-13 03:39:12,257 - werkzeug - INFO -  * Debugger PIN: 553-654-300
+2024-08-13 03:39:37,169 - werkzeug - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-08-13 03:39:56,412 - werkzeug - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-08-13 03:39:56,413 - werkzeug - INFO -  * Running on http://192.168.0.178:8000/ (Press CTRL+C to quit)
+2024-08-13 03:40:42,679 - app - INFO - Rendering index page
+2024-08-13 03:46:40,744 - app - INFO - Rendering index page
+2024-08-13 03:46:52,553 - app - INFO - Received data: 
+2024-08-13 03:50:10,701 - app - INFO - Rendering index page
+2024-08-13 03:52:25,505 - app - INFO - Rendering index page
+2024-08-13 03:52:44,113 - app - INFO - Rendering index page
+2024-08-13 03:52:45,851 - app - INFO - Rendering index page
+2024-08-13 03:52:52,694 - app - INFO - Rendering index page
+2024-08-13 03:54:52,844 - app - INFO - Rendering index page
+2024-08-13 03:54:59,677 - app - ERROR - Exception on /download/17 [GET]
+Traceback (most recent call last):
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/PycharmProjects/crewAI-examples/game-builder-crew/app.py", line 27, in download_code
+    file_path = persistence.get_code_file_path(project_id)  # Method to get code file path
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Persistence' object has no attribute 'get_code_file_path'
+2024-08-13 03:56:28,301 - app - INFO - Rendering index page
+2024-08-13 03:58:11,864 - app - INFO - Rendering index page
+2024-08-13 03:58:14,617 - app - INFO - Rendering index page
+2024-08-13 03:58:21,698 - app - INFO - Rendering index page
+2024-08-13 03:59:25,782 - app - INFO - Rendering index page
+2024-08-13 04:00:23,616 - app - INFO - Rendering index page
+2024-08-13 04:00:28,775 - app - INFO - Rendering index page
+2024-08-13 04:00:38,434 - app - INFO - Rendering index page
+2024-08-13 04:00:45,506 - app - ERROR - Exception on /download/1 [GET]
+Traceback (most recent call last):
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/PycharmProjects/crewAI-examples/game-builder-crew/app.py", line 27, in download_code
+    file_path = persistence.get_code_file_path(project_id)  # Method to get code file path
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Persistence' object has no attribute 'get_code_file_path'
+2024-08-13 04:00:56,975 - app - INFO - Rendering index page
+2024-08-13 04:00:57,963 - app - INFO - Rendering index page
+2024-08-13 04:01:25,801 - app - INFO - Rendering index page
+2024-08-13 04:01:33,446 - app - INFO - Rendering index page
+2024-08-13 04:01:34,396 - app - INFO - Rendering index page
+2024-08-13 04:01:43,193 - app - INFO - Rendering index page
+2024-08-13 04:02:13,403 - app - ERROR - Exception on /download/1 [GET]
+Traceback (most recent call last):
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/PycharmProjects/crewAI-examples/game-builder-crew/app.py", line 27, in download_code
+    file_path = persistence.get_code_file_path(project_id)  # Method to get code file path
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Persistence' object has no attribute 'get_code_file_path'
+2024-08-13 04:03:25,878 - app - INFO - Rendering index page

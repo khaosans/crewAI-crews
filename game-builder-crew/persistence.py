@@ -82,5 +82,11 @@ class Persistence:
                 (task_id, log)
             )
 
+    def get_all_projects(self):
+        with self.connection:
+            cursor = self.connection.execute('SELECT * FROM games')
+            projects = cursor.fetchall()
+            return [{'id': row[0], 'description': row[1]} for row in projects]
+
     def close(self):
         self.connection.close()

@@ -3,30 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Game Builder Crew</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 900px;
+      margin-top: 30px;
+    }
+    .app-form, .projects {
+      margin-top: 20px;
+    }
+    .app-form textarea {
+      height: 150px;
+    }
+    .project-item {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    .response {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
-  <h1 class="mt-5">Projects</h1>
-  <table class="table table-bordered mt-3">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Description</th>
-      <th>Download</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for project in projects %}
-    <tr>
-      <td>{{ project.id }}</td>
-      <td>{{ project.description }}</td>
-      <td><a href="{{ url_for('download_project', project_id=project.id) }}" class="btn btn-primary">Download</a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+  <h1 class="text-center">Welcome to the Game Crew</h1>
+  <form id="appForm" class="app-form">
+    <div class="form-group">
+      <label for="appDescription">What type of software app or game do you want to build?</label>
+      <textarea id="appDescription" name="appDescription" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <div id="response" class="response"></div>
+
+  <h2 class="mt-5">Submitted Projects</h2>
+  <div id="projects" class="projects">
+    <!-- Project items will be dynamically inserted here -->
+  </div>
 </div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  document.getElementById('appForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const appDescription = document.getElementById('appDescription').value;
+
+    try {
+      const response = await fetch('/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ appDescription }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      if (data.project_id) {
+        document.getElementById('response').innerHTML = `<p>Project submitted successfully. Project ID: ${data.project_id}</p>`;
+        loadProjects(); // Refresh the project list
+      } else {
+        document.getElementById('response').innerHTML = `<p>Error: ${data.error}</p>`;
+      }
+    } catch (error) {
+      document.getElementById('response').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  });
+
+  async function loadProjects() {
+    try {
+      const response = await fetch('/projects');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const projects = await response.json();
+      const projectsContainer = document.getElementById('projects');
+      projectsContainer.innerHTML = '';
+
+      projects.forEach(project => {
+        const projectElement = document.createElement('div');
+        projectElement.classList.add('project-item');
+        projectElement.innerHTML = `
+                        <h3>Project ID: ${project.id}</h3>
+                        <p>${project.description}</p>
+                        <a href="/download/${project.id}" class="btn btn-secondary">Download Code</a>
+                    `;
+        projectsContainer.appendChild(projectElement);
+      });
+    } catch (error) {
+      document.getElementById('response').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+
+  // Load projects on page load
+  loadProjects();
+</script>
 </body>
 </html>

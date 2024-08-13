@@ -1,34 +1,69 @@
-# AI Crew for Game Building
-## Introduction
-This project is an example using the CrewAI framework to automate the process of create simple games. CrewAI orchestrates autonomous AI agents, enabling them to collaborate and execute complex tasks efficiently.
+# Game Builder Crew Application
 
-#### Game Builder
-[![Game Builder](https://img.youtube.com/vi/g1AQxvR7Vsg/0.jpg)](https://www.youtube.com/watch?v=g1AQxvR7Vsg "Game Builder")
+## Overview
 
-By [@joaomdmoura](https://x.com/joaomdmoura)
+This project is a Flask-based web application designed to handle game descriptions and tasks for building a crew application. It includes features for logging, data upload, and task management.
 
-- [CrewAI Framework](#crewai-framework)
-- [Running the script](#running-the-script)
-- [Details & Explanation](#details--explanation)
-- [Using Local Models with Ollama](#using-local-models-with-ollama)
-- [License](#license)
+## File Structure
 
-## CrewAI Framework
-CrewAI is designed to facilitate the collaboration of role-playing AI agents. In this example, these agents work together to give a complete stock analysis and investment recommendation
+/game-builder-crew
+├── app.py
+├── templates
+│ └── index.html
+├── .env
+├── app_logs.log
+└── README.md
 
-## Running the Script
-This example uses GPT-4.
+markdown
+Copy code
 
-- **Configure Environment**: Copy ``.env.example` and set up the environment variable
-- **Install Dependencies**: Run `poetry install --no-root`.
-- **Execute the Script**: Run `python main.py` and input your idea.
+## Setup Instructions
 
-## Details & Explanation
-- **Running the Script**: Execute `python main.py`` and input your idea when prompted. The script will leverage the CrewAI framework to process the idea and generate a landing page.
-- **Key Components**:
-  - `./main.py`: Main script file.
-  - `./tasks.py`: Main file with the tasks prompts.
-  - `./agents.py`: Main file with the agents creation.
+### 1. **Install Dependencies**
 
-## License
-This project is released under the MIT License.
+Make sure you have Python installed. Then, install the required packages using `pip`:
+
+```sh
+pip install flask gunicorn python-dotenv
+2. Environment Configuration
+Create a .env file in the project root (if you are using python-dotenv) and add the following environment variables:
+
+makefile
+Copy code
+FLASK_ENV=production
+3. Run the Application
+Development Mode
+To run the application in development mode:
+
+sh
+Copy code
+python app.py
+Production Mode
+For a production environment, use Gunicorn:
+
+sh
+Copy code
+gunicorn -w 4 -b 0.0.0.0:8000 app:app
+-w 4: Number of worker processes (adjust based on server capacity).
+-b 0.0.0.0:8000: Bind to all IP addresses on port 8000.
+app:app: Refers to the Flask application instance (app) in app.py.
+4. Access the Application
+Local Access: Open a web browser and navigate to http://127.0.0.1:8000/.
+Remote Access: Ensure that port 8000 is open and accessible from the network.
+5. Logging
+The application logs are stored in app_logs.log. Log messages include:
+
+INFO: General information (e.g., page rendering, data received).
+ERROR: Errors and exceptions.
+6. File Descriptions
+app.py: Main application file with Flask routes and logging configuration.
+templates/index.html: HTML template for the web interface.
+app_logs.log: Log file where application logs are saved.
+.env: Environment configuration file (optional).
+Troubleshooting
+No Server Displayed: Ensure Gunicorn is running properly and that port 8000 is not blocked by a firewall.
+Port Already in Use: Change the port number in the Gunicorn command if necessary.
+sql
+Copy code
+
+Copy and paste the above text into a file named `README.md` in your 
