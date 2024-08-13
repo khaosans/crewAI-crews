@@ -1,0 +1,10 @@
+2024-08-13 02:08:10,424 - root - INFO - Game description saved with ID: 4
+2024-08-13 02:08:10,425 - root - INFO - Agent saved with ID: 10
+2024-08-13 02:08:10,425 - root - INFO - Task saved with ID: 10
+2024-08-13 02:08:10,426 - root - INFO - Task result saved for Task ID: 10
+2024-08-13 02:08:10,426 - root - INFO - Test completed and database connection closed.
+2024-08-13 02:08:20,084 - root - INFO - Game description saved with ID: 5
+2024-08-13 02:08:20,085 - root - INFO - Agent saved with ID: 11
+2024-08-13 02:08:20,086 - root - INFO - Task saved with ID: 11
+2024-08-13 02:08:20,086 - root - INFO - Task result saved for Task ID: 11
+2024-08-13 02:08:20,086 - root - INFO - Test completed and database connection closed.
