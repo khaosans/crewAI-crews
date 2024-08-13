@@ -14,8 +14,6 @@ This project is a Flask-based web application designed to handle game descriptio
 ├── app_logs.log
 └── README.md
 
-markdown
-Copy code
 
 ## Setup Instructions
 
