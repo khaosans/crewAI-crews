@@ -1,12 +1,11 @@
 from textwrap import dedent
 from crewai import Task
 
-
-class BuildAppTasks:
+class GameTasks:
     def code_task(self, agent, app):
         return Task(
             description=dedent(f"""\
-                You will create a application using Python, these are the instructions:
+                You will create an application using Python, these are the instructions:
 
                 Instructions
                 ------------
@@ -21,7 +20,7 @@ class BuildAppTasks:
     def review_task(self, agent, application):
         return Task(
             description=dedent(f"""\
-                You are helping create a application using Python, these are the instructions:
+                You are helping create an application using Python, these are the instructions:
 
                 Instructions
                 ------------
@@ -40,7 +39,7 @@ class BuildAppTasks:
     def evaluate_task(self, agent, application):
         return Task(
             description=dedent(f"""\
-                You are helping create a application using Python, these are the instructions:
+                You are helping create an application using Python, these are the instructions:
 
                 Instructions
                 ------------

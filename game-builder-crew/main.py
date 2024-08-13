@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from crewai import Crew
-from tasks import BuildAppTasks
+from tasks import GameTasks
 from agents import GameAgents
 from persistence import Persistence
 
@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, filename='app_logs.log',
 persistence = Persistence()
 
 # Initialize tasks and agents
-tasks = BuildAppTasks()
+tasks = GameTasks()
 agents = GameAgents()
 
 logging.info("Starting the application building Crew Application")

@@ -8,3 +8,8 @@
 2024-08-13 02:08:20,086 - root - INFO - Task saved with ID: 11
 2024-08-13 02:08:20,086 - root - INFO - Task result saved for Task ID: 11
 2024-08-13 02:08:20,086 - root - INFO - Test completed and database connection closed.
+2024-08-13 02:48:54,352 - root - INFO - Game description saved with ID: 11
+2024-08-13 02:48:54,353 - root - INFO - Agent saved with ID: 27
+2024-08-13 02:48:54,353 - root - INFO - Task saved with ID: 24
+2024-08-13 02:48:54,354 - root - INFO - Task result saved for Task ID: 24
+2024-08-13 02:48:54,354 - root - INFO - Test completed and database connection closed.

@@ -55,8 +55,7 @@ class Persistence:
     def save_agent(self, role, backstory, allow_delegation, verbose):
         with self.connection:
             cursor = self.connection.execute(
-                '''INSERT INTO agents (role, backstory, allow_delegation, verbose) 
-                VALUES (?, ?, ?, ?)''',
+                'INSERT INTO agents (role, backstory, allow_delegation, verbose) VALUES (?, ?, ?, ?)',
                 (role, backstory, allow_delegation, verbose)
             )
             return cursor.lastrowid
@@ -64,20 +63,16 @@ class Persistence:
     def save_task(self, game_id, agent_id, description, expected_output):
         with self.connection:
             cursor = self.connection.execute(
-                '''INSERT INTO tasks (game_id, agent_id, description, expected_output) 
-                VALUES (?, ?, ?, ?)''',
+                'INSERT INTO tasks (game_id, agent_id, description, expected_output) VALUES (?, ?, ?, ?)',
                 (game_id, agent_id, description, expected_output)
             )
             return cursor.lastrowid
 
     def save_task_result(self, task_id, result):
-        # Serialize the result (CrewOutput object) to a JSON string
-        result_serialized = json.dumps(result, default=str)
-
         with self.connection:
             self.connection.execute(
                 'UPDATE tasks SET result = ? WHERE id = ?',
-                (result_serialized, task_id)
+                (json.dumps(result), task_id)
             )
 
     def save_log(self, task_id, log):
