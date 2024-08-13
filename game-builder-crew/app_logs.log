@@ -100,3 +100,27 @@ Traceback (most recent call last):
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'Persistence' object has no attribute 'get_code_file_path'
 2024-08-13 04:03:25,878 - app - INFO - Rendering index page
+2024-08-13 04:09:20,626 - app - INFO - Rendering index page
+2024-08-13 04:09:22,649 - app - ERROR - Exception on /download/1 [GET]
+Traceback (most recent call last):
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/Library/Caches/pypoetry/virtualenvs/langgraph-monorepo-yUSer9KB-py3.12/lib/python3.12/site-packages/flask/app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Sour/PycharmProjects/crewAI-examples/game-builder-crew/app.py", line 28, in download_code
+    file_path = persistence.get_code_file_path(project_id)  # Method to get code file path
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Persistence' object has no attribute 'get_code_file_path'
+2024-08-13 05:09:04,201 - app - INFO - Rendering index page
+2024-08-13 05:09:12,247 - app - INFO - Rendering index page
+2024-08-13 05:11:53,615 - app - INFO - Rendering index page
+2024-08-13 05:22:40,968 - app - INFO - Rendering index page
+2024-08-13 13:55:01,147 - app - INFO - Rendering index page
