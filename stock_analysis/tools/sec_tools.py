@@ -4,12 +4,15 @@ from langchain.tools import tool
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
+from pydantic import ConfigDict
 from sec_api import QueryApi
 from unstructured.partition.html import partition_html
 
 class SECTools:
     user_agent = os.getenv('USER_AGENT', 'YourAppName/1.0 (contact@example.com)')
-
+    model_config = ConfigDict(
+        populate_by_name=True  # Use the new key name
+    )
     headers = {
         'User-Agent': os.getenv('USER_AGENT', 'YourAppName/1.0 (contact@example.com)'),
     }

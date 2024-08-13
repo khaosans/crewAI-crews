@@ -3,6 +3,7 @@ import logging
 from textwrap import dedent
 
 from dotenv import load_dotenv
+from pydantic import ConfigDict
 
 load_dotenv()
 
@@ -11,12 +12,24 @@ from stock_analysis_agents import StockAnalysisAgents
 from stock_analysis_tasks import StockAnalysisTasks
 from openai import APIError
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO, filename='app_logs.log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+# Check if USER_AGENT environment variable is set
+user_agent = os.getenv('USER_AGENT')
+if not user_agent:
+    logging.warning("USER_AGENT environment variable not set, consider setting it to identify your requests.")
+    user_agent = 'YourAppName/1.0 (contact@example.com)'
 
+headers = {
+    'User-Agent': user_agent,
+}
 class FinancialCrew:
+    model_config = ConfigDict(
+        populate_by_name=True  # Use the new key name
+    )
+
     def __init__(self, company):
         self.company = company
 
@@ -60,12 +73,11 @@ class FinancialCrew:
 if __name__ == "__main__":
     print("## Welcome to Financial Analysis Crew")
     print('-------------------------------')
-    # company = input(
-    #     dedent("""
-    #         What is the company you want to analyze?
-    #     """))
+    company = input(
+        dedent("""
+            What is the company you want to analyze?
+        """))
 
-    company= "AAPL"
     financial_crew = FinancialCrew(company)
     result = financial_crew.run()
     print("\n\n########################")

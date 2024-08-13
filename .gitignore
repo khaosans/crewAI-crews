@@ -1,2 +1,24 @@
+# macOS
 .DS_Store
+
+# Environment variables
 .env
+
+# PyCharm
+.idea/
+*.iml
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+*.orig
+*.rej
+*.sublime-project
+*.sublime-workspace
+.vscode/
+*.code-workspace

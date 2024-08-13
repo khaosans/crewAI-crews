@@ -1,6 +1,8 @@
-crewai==0.11.0
-langgraph==0.0.15
-langchain-community==0.0.14
+crewai
+langgraph
+langchain-community
+langchain-core
+langchain-openai
 python-dotenv==1.0.0
 google-search-results==2.1.0
 google-api-python-client==2.114.0
@@ -8,3 +10,4 @@ google-auth-oauthlib==1.2.0
 google-auth-httplib2==0.2.0
 beautifulsoup4==4.12.3
 tavily-python==0.3.1
+tiktoken

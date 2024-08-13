@@ -11,6 +11,7 @@ from langchain_community.tools import YahooFinanceNewsTool
 class StockAnalysisAgents():
     def __init__(self):
         self.Ollama = Ollama(model="Llama3.1")
+
     def financial_analyst(self):
         return Agent(
             role='The Best Financial Analyst',

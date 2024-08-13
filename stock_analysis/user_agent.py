@@ -1,8 +1,19 @@
+import os
 import requests
+import logging
 
-# Define your user agent string
+# Configure logging
+logging.basicConfig(level=logging.INFO, filename='app_logs.log',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# Check if USER_AGENT environment variable is set
+user_agent = os.getenv('USER_AGENT')
+if not user_agent:
+    logging.warning("USER_AGENT environment variable not set, consider setting it to identify your requests.")
+    user_agent = 'YourAppName/1.0 (contact@example.com)'
+
 headers = {
-    'User-Agent': 'YourAppName/1.0 (contact@example.com)',
+    'User-Agent': user_agent,
 }
 
 def search_10q(ticker, query):
@@ -15,5 +26,7 @@ def search_10q(ticker, query):
         data = response.json()
         # Process your data as needed
         return data
+    elif response.status_code == 404:
+        raise Exception(f"Error fetching data from SEC: 404 - The requested resource could not be found.")
     else:
         raise Exception(f"Error fetching data from SEC: {response.status_code}")
