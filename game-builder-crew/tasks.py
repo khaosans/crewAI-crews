@@ -1,48 +1,56 @@
 from textwrap import dedent
 from crewai import Task
 
-class GameTasks():
-	def code_task(self, agent, game):
-		return Task(description=dedent(f"""You will create a game using python, these are the instructions:
 
-			Instructions
-			------------
-    	{game}
+class GameTasks:
+    def code_task(self, agent, game):
+        return Task(
+            description=dedent(f"""\
+                You will create a game using Python, these are the instructions:
 
-			Your Final answer must be the full python code, only the python code and nothing else.
-			"""),
-			agent=agent
-		)
+                Instructions
+                ------------
+                {game}
 
-	def review_task(self, agent, game):
-		return Task(description=dedent(f"""\
-			You are helping create a game using python, these are the instructions:
+                Your final answer must be the full Python code, only the Python code and nothing else.
+            """),
+            agent=agent,
+            expected_output="Complete and functional Python code for the game as per the instructions provided."
+        )
 
-			Instructions
-			------------
-			{game}
+    def review_task(self, agent, game):
+        return Task(
+            description=dedent(f"""\
+                You are helping create a game using Python, these are the instructions:
 
-			Using the code you got, check for errors. Check for logic errors,
-			syntax errors, missing imports, variable declarations, mismatched brackets,
-			and security vulnerabilities.
+                Instructions
+                ------------
+                {game}
 
-			Your Final answer must be the full python code, only the python code and nothing else.
-			"""),
-			agent=agent
-		)
+                Using the code you received, check for errors. Check for logic errors,
+                syntax errors, missing imports, variable declarations, mismatched brackets,
+                and security vulnerabilities.
 
-	def evaluate_task(self, agent, game):
-		return Task(description=dedent(f"""\
-			You are helping create a game using python, these are the instructions:
+                Your final answer must be the corrected Python code, only the Python code and nothing else.
+            """),
+            agent=agent,
+            expected_output="Corrected and error-free Python code that adheres to the provided game instructions."
+        )
 
-			Instructions
-			------------
-			{game}
+    def evaluate_task(self, agent, game):
+        return Task(
+            description=dedent(f"""\
+                You are helping create a game using Python, these are the instructions:
 
-			You will look over the code to insure that it is complete and
-			does the job that it is supposed to do.
+                Instructions
+                ------------
+                {game}
 
-			Your Final answer must be the full python code, only the python code and nothing else.
-			"""),
-			agent=agent
-		)
+                You will review the code to ensure that it is complete and
+                performs the intended functions as described.
+
+                Your final answer must be the verified Python code, only the Python code and nothing else.
+            """),
+            agent=agent,
+            expected_output="Verified and fully functional Python code that fulfills the game's intended purpose."
+        )
