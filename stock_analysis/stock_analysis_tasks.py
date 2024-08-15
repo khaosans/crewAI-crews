@@ -96,6 +96,8 @@ class StockAnalysisTasks:
                 customer. It should be a full super detailed report, providing a
                 clear investment stance and strategy with supporting evidence.
                 Make it pretty and well formatted for your customer.
+                
+                
                 {self.__tip_section()}
             """),
             expected_output="A set of investment recommendations based on the analysis.",

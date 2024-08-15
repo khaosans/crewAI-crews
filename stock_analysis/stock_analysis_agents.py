@@ -1,6 +1,8 @@
 from crewai import Agent
 from langchain_community.llms.ollama import Ollama
 
+from stock_analysis.tools.browser_tools import BrowserTools
+from stock_analysis.tools.sqllite import SqlLite
 from tools.calculator_tools import CalculatorTools
 from tools.search_tools import SearchTools
 from tools.sec_tools import SECTools
@@ -22,13 +24,14 @@ class StockAnalysisAgents():
       strategies that is working for a super important customer.""",
             verbose=True,
             tools=[
-                # BrowserTools.scrape_and_summarize_website,
+                BrowserTools.scrape_and_summarize_website,
                 SearchTools.search_internet,
                 CalculatorTools.calculate,
                 SECTools.search_10q,
                 SECTools.search_10k
             ],
             expected_output="A comprehensive report on the company's financial status and market trends.",
+            llm_predictor=self.Ollama
         )
 
     def research_analyst(self):
@@ -42,7 +45,7 @@ class StockAnalysisAgents():
       important customer""",
             verbose=True,
             tools=[
-                # BrowserTools.scrape_and_summarize_website,
+                BrowserTools.scrape_and_summarize_website,
                 SearchTools.search_internet,
                 SearchTools.search_news,
                 YahooFinanceNewsTool(),
@@ -51,6 +54,7 @@ class StockAnalysisAgents():
 
             ],
             expected_output="A detailed financial analysis report with investment recommendations.",
+            llm_predictor=self.Ollama
 
         )
 
@@ -65,11 +69,13 @@ class StockAnalysisAgents():
       a super important customer you need to impress.""",
             verbose=True,
             tools=[
-                # BrowserTools.scrape_and_summarize_website,
+                BrowserTools.scrape_and_summarize_website,
                 SearchTools.search_internet,
                 SearchTools.search_news,
                 CalculatorTools.calculate,
-                YahooFinanceNewsTool()
+                YahooFinanceNewsTool(),
+                SqlLite().insert_trading_data,
             ],
-            expected_output="A set of investment recommendations based on the analysis."
+            expected_output="A set of investment recommendations based on the analysis.",
+            llm_predictor=self.Ollama
         )

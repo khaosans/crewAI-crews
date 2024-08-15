@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 from langchain.tools import tool
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
@@ -7,6 +8,22 @@ from langchain_community.vectorstores import FAISS
 from pydantic import ConfigDict
 from sec_api import QueryApi
 from unstructured.partition.html import partition_html
+
+# Define the rate limit (e.g., 1 request per second)
+RATE_LIMIT = 1  # seconds
+
+def make_request(url, headers, payload=None):
+    if payload:
+        response = requests.post(url, headers=headers, data=payload)
+    else:
+        response = requests.get(url, headers=headers)
+    return response
+
+def rate_limited_requests(url, headers, payload, num_requests):
+    for _ in range(num_requests):
+        response = make_request(url, headers, payload)
+        print(response.status_code, response.json())
+        time.sleep(RATE_LIMIT)
 
 class SECTools:
     user_agent = os.getenv('USER_AGENT', 'YourAppName/1.0 (contact@example.com)')
@@ -31,7 +48,9 @@ class SECTools:
         """
         url = f'https://data.sec.gov/submissions/CIK{ticker}.json'
 
-        # Make the request with the User-Agent header
+        # Use rate_limited_requests to handle API calls
+        rate_limited_requests(url, SECTools.headers, None, 1)
+
         response = requests.get(url, headers=SECTools.headers)
 
         if response.status_code == 200:
@@ -65,7 +84,9 @@ class SECTools:
             "sort": [{"filedAt": {"order": "desc"}}]
         }
 
-        # Make the request with the User-Agent header
+        # Use rate_limited_requests to handle API calls
+        rate_limited_requests(queryApi.get_filings(query), SECTools.headers, None, 1)
+
         response = requests.get(queryApi.get_filings(query), headers=SECTools.headers)
 
         if response.status_code == 200:

@@ -1,8 +1,11 @@
 import os
 import logging
+import time
 from textwrap import dedent
+from urllib import request
 
 from dotenv import load_dotenv
+from langchain_community.llms.ollama import Ollama
 from pydantic import ConfigDict
 
 load_dotenv()
@@ -12,9 +15,10 @@ from stock_analysis_agents import StockAnalysisAgents
 from stock_analysis_tasks import StockAnalysisTasks
 from openai import APIError
 
-
 logging.basicConfig(level=logging.INFO, filename='app_logs.log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+defalut_llm = Ollama(model="Llama3.1")
 
 # Check if USER_AGENT environment variable is set
 user_agent = os.getenv('USER_AGENT')
@@ -68,7 +72,6 @@ class FinancialCrew:
             result = "An error occurred while processing your request. Please try again later."
 
         return result
-
 
 if __name__ == "__main__":
     print("## Welcome to Financial Analysis Crew")
