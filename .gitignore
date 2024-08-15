@@ -4,6 +4,8 @@
 # Environment variables
 .env
 
+.idea
+
 # PyCharm
 .idea/
 *.iml
@@ -22,3 +24,11 @@ __pycache__/
 *.sublime-workspace
 .vscode/
 *.code-workspace
+
+# any .env files in any directory
+**/.env
+#any credentials file
+**/credentials.json
+
+/CrewAI-LangGraph/.env
+
