@@ -1,0 +1,47 @@
+import json
+import os
+import logging
+import requests
+from langchain.tools import tool
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+class SearchTools():
+
+  @tool("Search the internet")
+  def search_internet(query):
+    """Useful to search the internet
+    about a a given topic and return relevant results"""
+    logging.info("Searching the internet for query: %s", query)
+    top_result_to_return = 5
+    url = "https://google.serper.dev/search"
+    payload = json.dumps(
+      {"q": query, "num": top_result_to_return, "tbm": "nws"})
+    headers = {
+      'X-API-KEY': os.environ['SERPER_API_KEY'],
+      'content-type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    if 'organic' not in response.json():
+      logging.error("No organic results found for query: %s", query)
+      return "Sorry, I couldn't find anything about that, there could be an error with you serper api key."
+    else:
+      results = response.json()['organic']
+      logging.info("Results found: %s", results[:top_result_to_return])
+      string = []
+      for result in results[:top_result_to_return]:
+        try:
+          date = result.get('date', 'Date not available')
+          string.append('\n'.join([
+            f"Title: {result['title']}",
+            f"Link: {result['link']}",
+            f"Date: {date}",
+            f"Snippet: {result['snippet']}",
+            "\n-----------------"
+          ]))
+        except KeyError:
+          logging.warning("KeyError encountered while processing result: %s", result)
+          continue
+
+      return '\n'.join(string)
