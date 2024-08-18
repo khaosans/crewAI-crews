@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def save_markdown(task_output):
+def save_python(task_output):
     # Get today's date in the format YYYY-MM-DD
     today_date = datetime.now().strftime('%Y-%m-%d')
     # Set the filename with today's date
