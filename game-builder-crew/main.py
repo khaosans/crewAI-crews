@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     print("## Welcome to the Chatbot Crew")
     print('-------------------------------')
-    # this part should be input from the streamlit app
+    # this part should be input from the application
     chatbot_description = input(
         "Describe the chatbot you would like to build. What will be its main functionalities?"
     )
@@ -43,6 +43,7 @@ if __name__ == "__main__":
     implement_chatbot = tasks.implement_task(chatbot_developer_agent, chatbot_description)
     test_chatbot = tasks.test_task(qa_engineer_agent, chatbot_description)
     review_chatbot = tasks.review_task(product_manager_agent, chatbot_description)
+    tasks.save_task(product_manager_agent, chatbot_description, '/Users/Sour/agent-code-folder')
 
     # Create Crew responsible for Chatbot
     crew = Crew(

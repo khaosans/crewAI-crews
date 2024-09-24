@@ -6,8 +6,26 @@ import requests
 
 from langchain_core.tools import Tool
 
+from crewai import Agent
+from crewai_tools import CodeInterpreterTool
+
+
 from langchain_experimental.utilities import PythonREPL
 
+
+from crewai_tools import FileWriterTool
+
+# Initialize the tool
+file_writer_tool = FileWriterTool()
+
+code_interpreter_tool = CodeInterpreterTool()
+
+# Define the code and libraries used
+# Removed Streamlit import
+# code = "import streamlit as st\nprint('Streamlit imported successfully')"
+# libraries_used = ["streamlit"]
+
+# Write content to a file in a specified directory
 # Configure logging
 logging.basicConfig(level=logging.INFO, filename='agent_logs.log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -29,14 +47,14 @@ class ChatbotAgents():
         logging.info("Creating Chatbot Developer Agent")
         return Agent(
             role='Chatbot Developer',
-            goal='Develop a chatbot using Streamlit that can interact with users.',
+            goal='Develop a chatbot that can interact with users.',  # Removed Streamlit reference
             backstory=dedent("""\
                 You are a Chatbot Developer specializing in creating interactive chatbots.
                 Your expertise is in natural language processing and user experience design.
                 You strive to create chatbots that are engaging and helpful.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],  # Ensure tools are correctly passed
+            tools=[CodeInterpreterTool()],  # Ensure tools are correctly passed
             allow_delegation=False,
             verbose=True
         )
@@ -52,7 +70,7 @@ class ChatbotAgents():
                 You check for response accuracy, user interaction flow, and overall performance.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -70,7 +88,7 @@ class ChatbotAgents():
                 are met across all stages of development and deployment.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool(), file_writer_tool],
             allow_delegation=True,
             verbose=True
         )
@@ -85,7 +103,7 @@ class ChatbotAgents():
                 You ensure that the data used for training and responses is accurate and relevant.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -100,7 +118,7 @@ class ChatbotAgents():
                 You ensure that the chatbot is accessible to users and runs smoothly in production.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -109,13 +127,13 @@ class ChatbotAgents():
         logging.info("Creating Integration Tester Agent")
         return Agent(
             role='Integration Tester',
-            goal='Run the Streamlit app and verify its functionality.',
+            goal='Run the application and verify its functionality.',  # Removed Streamlit reference
             backstory=dedent("""\
                 You are an Integration Tester specializing in running applications and verifying their functionality.
                 You ensure that the application works as expected and provides a seamless user experience.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -130,7 +148,7 @@ class ChatbotAgents():
                 You ensure that the data is stored securely and efficiently, and that the database is optimized for performance.
             """),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
