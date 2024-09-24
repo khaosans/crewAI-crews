@@ -1,141 +1,136 @@
 import logging
+import os
 from textwrap import dedent
-from crewai import Agent
-from langchain_community.llms.ollama import Ollama
-import requests
-from data_ingestion import DataIngestion
 
-from langchain_core.tools import Tool
+from crewai import Agent  # Ensure crewai is installed
+from crewai_tools import CSVSearchTool, RagTool  # Ensure crewai-tools is installed
+from langchain_community.llms.ollama import Ollama  # Ensure langchain-community is installed
+from langchain_core.tools import Tool  # Ensure langchain-core is installed
+from langchain_experimental.utilities import PythonREPL  # Ensure langchain-experimental is installed
 
-from langchain_experimental.utilities import PythonREPL
+# Hardcoded path for saving code
+CODE_SAVE_PATH = "/Users/Sour/agent-code-folder"
+
+# Ensure the directory exists
+os.makedirs(CODE_SAVE_PATH, exist_ok=True)
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, filename='agent_logs.log',
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-python_repl = PythonREPL()
-# You can create the tool to pass to an agent
-repl_tool = Tool(
-    name="python_repl",
-    description="A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
-    func=python_repl.run,
+logging.basicConfig(
+    level=logging.INFO,
+    filename='agent_logs.log',
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 )
 
 
-class ChatbotAgents():
+class ChatbotAgents:
     def __init__(self):
-        self.Ollama = Ollama(model="Llama3.1")
-        self.data_ingestion = DataIngestion(data_source='data.csv')
+        self.Ollama = Ollama(model="Llama3.1")  # Ensure Ollama is initialized
+        self.python_repl = PythonREPL()
+        self.repl_tool = Tool(
+            name="python_repl",
+            description="A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
+            func=self.python_repl.run,
+        )
+        self.csv_search_tool = CSVSearchTool()
+        self.knowledge_retriever_tool = RagTool()
 
-    def chatbot_developer_agent(self):
-        logging.info("Creating Chatbot Developer Agent")
+    def lead_developer_agent(self):
+        logging.info("Creating Lead Developer Agent")
         return Agent(
-            role='Chatbot Developer',
-            goal='Develop a chatbot using Streamlit that can interact with users.',
-            backstory=dedent("""\
-                You are a Chatbot Developer specializing in creating interactive chatbots.
-                Your expertise is in natural language processing and user experience design.
-                You strive to create chatbots that are engaging and helpful.
-            """),
+            role='Lead Developer',
+            goal='Design and architect software systems, including file structure and necessary files.',
+            backstory=dedent(
+                rf"""\
+                A seasoned architect with a deep understanding of modern software development.
+                You lead the team in making scalable and maintainable decisions.
+                All code will be saved to the hardcoded path: {CODE_SAVE_PATH}. Do not change this path.
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],  # Ensure tools are correctly passed
+            tools=[self.repl_tool, self.csv_search_tool, self.knowledge_retriever_tool, self.code_saver_tool],
             allow_delegation=False,
-            verbose=True
+            verbose=True,
         )
 
-    def qa_engineer_agent(self):
-        logging.info("Creating Chatbot QA Engineer Agent")
+    def code_reviewer_agent(self):
+        logging.info("Creating Code Reviewer Agent")
         return Agent(
-            role='Chatbot QA Engineer',
-            goal='Ensure the chatbot functions correctly and provides accurate responses.',
-            backstory=dedent("""\
-                You are a QA Engineer specializing in testing chatbots.
-                You have an eye for detail and a knack for finding hidden bugs.
-                You check for response accuracy, user interaction flow, and overall performance.
-            """),
+            role='Code Reviewer',
+            goal='Ensure code quality and adherence to best practices',
+            backstory=dedent(
+                r"""\
+                You have an eye for detail and are relentless in your pursuit of clean, efficient code.
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[self.repl_tool, self.csv_search_tool, self.code_saver_tool],
             allow_delegation=False,
-            verbose=True
+            verbose=True,
         )
 
-    def product_manager_agent(self):
-        logging.info("Creating Chatbot Product Manager Agent")
+    def debugger_agent(self):
+        logging.info("Creating Debugger Agent")
         return Agent(
-            role='Chatbot Product Manager',
-            goal='Oversee the development and deployment of the chatbot, delegating tasks as needed.',
-            backstory=dedent("""\
-                You are a Product Manager responsible for overseeing the entire development process
-                of the chatbot. Your role involves ensuring that the project stays on track, 
-                meets the business requirements, and is delivered on time. You delegate tasks to 
-                the appropriate team members, manage the timeline, and ensure that quality standards 
-                are met across all stages of development and deployment.
-            """),
+            role='Debugger',
+            goal='Find and fix bugs quickly',
+            backstory=dedent(
+                r"""\
+                You're a detective in the world of code, tracking down bugs and eliminating them with precision.
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],
-            allow_delegation=True,
-            verbose=True
+            tools=[self.repl_tool, self.csv_search_tool, self.code_saver_tool],
+            allow_delegation=False,
+            verbose=True,
         )
 
-    def data_engineer_agent(self):
-        logging.info("Creating Chatbot Data Engineer Agent")
+    def documentation_specialist_agent(self):
+        logging.info("Creating Documentation Specialist Agent")
         return Agent(
-            role='Chatbot Data Engineer',
-            goal='Prepare and manage data for the chatbot interactions.',
-            backstory=dedent("""\
-                You are a Data Engineer specializing in preparing datasets for chatbots.
-                You ensure that the data used for training and responses is accurate and relevant.
-            """),
+            role='Documentation Specialist',
+            goal='Ensure all code is well-documented for future reference',
+            backstory=dedent(
+                r"""\
+                You’re a master communicator, translating complex technical information into clear documentation.
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[self.repl_tool, self.csv_search_tool, self.code_saver_tool],
             allow_delegation=False,
-            verbose=True
+            verbose=True,
         )
 
-    def deployment_engineer_agent(self):
-        logging.info("Creating Chatbot Deployment Engineer Agent")
+    def knowledge_retriever_agent(self):
+        logging.info("Creating Knowledge Retriever Agent")
         return Agent(
-            role='Chatbot Deployment Engineer',
-            goal='Deploy the chatbot to production environments.',
-            backstory=dedent("""\
-                You are a Deployment Engineer responsible for deploying chatbots.
-                You ensure that the chatbot is accessible to users and runs smoothly in production.
-            """),
+            role='Knowledge Retriever',
+            goal='Retrieve relevant knowledge and resources for the crew',
+            backstory=dedent(
+                r"""\
+                You're a digital librarian, always retrieving the right resource at the right time.
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[self.repl_tool, self.csv_search_tool, self.knowledge_retriever_tool, self.code_saver_tool],
             allow_delegation=False,
-            verbose=True
-        )
-
-    def integration_tester_agent(self):
-        logging.info("Creating Integration Tester Agent")
-        return Agent(
-            role='Integration Tester',
-            goal='Run the Streamlit app and verify its functionality.',
-            backstory=dedent("""\
-                You are an Integration Tester specializing in running applications and verifying their functionality.
-                You ensure that the application works as expected and provides a seamless user experience.
-            """),
-            llm=self.Ollama,
-            tools=[repl_tool],
-            allow_delegation=False,
-            verbose=True
+            verbose=True,
         )
 
     def database_engineer_agent(self):
         logging.info("Creating Database Engineer Agent")
         return Agent(
             role='Database Engineer',
-            goal='Set up and manage the database for the chatbot project.',
-            backstory=dedent("""\
-                You are a Database Engineer specializing in setting up and managing databases.
+            goal='Set up and manage the database for the chatbot project',
+            backstory=dedent(
+                r"""\
                 You ensure that the data is stored securely and efficiently, and that the database is optimized for performance.
-            """),
+                """
+            ),
             llm=self.Ollama,
-            tools=[repl_tool],
+            tools=[self.repl_tool],  # Assuming database connection tool is handled elsewhere
             allow_delegation=False,
-            verbose=True
+            verbose=True,
         )
 
 # Ensure the following libraries are installed
-# pip install crewai langchain-community requests langchain-tools chromadb sqlite3 pandas
+# pip install crewai langchain-community requests langchain-core langchain-experimental

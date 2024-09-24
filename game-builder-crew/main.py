@@ -34,11 +34,14 @@ if __name__ == "__main__":
 
     logging.info('Chatbot description received: {}', chatbot_description)
 
-    # Create Agents and save them
-    chatbot_developer_agent = agents.chatbot_developer_agent()
-    qa_engineer_agent = agents.qa_engineer_agent()
+    # get all agents
+    chatbot_developer_agent = agents.lead_developer_agent()
+    qa_engineer_agent = agents.database_engineer_agent()
     product_manager_agent = agents.product_manager_agent()
-
+    
+    
+    
+    
     # Create Tasks and save them
     implement_chatbot = tasks.implement_task(chatbot_developer_agent, chatbot_description)
     test_chatbot = tasks.test_task(qa_engineer_agent, chatbot_description)
@@ -65,7 +68,6 @@ if __name__ == "__main__":
     print(chatbot)
 
     # Close persistence connection
-    persistence.close()
     logging.info("Persistence connection closed. Application finished.")
 
     # REPL for agent look-up and GitHub search

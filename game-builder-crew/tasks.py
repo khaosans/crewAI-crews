@@ -85,15 +85,4 @@ class ChatbotTasks:
             expected_output="Report on the database setup and management, including any issues found."
         )
 
-    def search_github(self, query):
-        url = f"https://api.github.com/search/repositories?q={query}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            repositories = [
-                {"name": repo["name"], "description": repo["description"]}
-                for repo in data["items"]
-            ]
-            return repositories
-        else:
-            return f"Error: {response.status_code} - {response.text}"
+   
