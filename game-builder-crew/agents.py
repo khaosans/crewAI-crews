@@ -2,148 +2,140 @@ import logging
 from textwrap import dedent
 from crewai import Agent
 from langchain_community.llms.ollama import Ollama
+import requests
+from data_ingestion import DataIngestion
+
+from langchain_core.tools import Tool
+
+from langchain_experimental.utilities import PythonREPL
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, filename='agent_logs.log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+python_repl = PythonREPL()
+# You can create the tool to pass to an agent
+repl_tool = Tool(
+    name="python_repl",
+    description="A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
+    func=python_repl.run,
+)
 
-class GameAgents():
+
+class ChatbotAgents():
     def __init__(self):
         self.Ollama = Ollama(model="Llama3.1")
+        self.data_ingestion = DataIngestion(data_source='data.csv')
 
-    def senior_engineer_agent(self):
-        logging.info("Creating Senior Software Engineer Agent")
+    def chatbot_developer_agent(self):
+        logging.info("Creating Chatbot Developer Agent")
         return Agent(
-            role='Senior Software Engineer',
-            goal='Create software as needed',
+            role='Chatbot Developer',
+            goal='Develop a chatbot using Streamlit that can interact with users.',
             backstory=dedent("""\
-                You are a Senior Software Engineer at a leading tech think tank.
-                Your expertise is in programming in Python. You strive to 
-                produce perfect code.
+                You are a Chatbot Developer specializing in creating interactive chatbots.
+                Your expertise is in natural language processing and user experience design.
+                You strive to create chatbots that are engaging and helpful.
             """),
-            allow_delegation=False,
-            verbose=True
-        )
-
-    def senoir_devops_engineer_agent(self):
-        logging.info("Creating Senior DevOps Engineer Agent")
-        return Agent(
-            role='DevOps Engineer',
-            goal='Deploy the application using Docker.',
-            backstory=dedent("""\
-					You are a DevOps Engineer specialized in containerizing applications
-					and deploying them using Docker. You ensure that the application 
-					runs smoothly in isolated environments and manage the CI/CD pipeline.
-				"""),
-            allow_delegation=False,
-            verbose=True
-        )
-
-    def senoir_devops_engineer_agent2(self):
-        logging.info("Creating Senior DevOps Engineer Agent")
-        return Agent(
-            role='DevOps Engineer',
-            goal='Deploy the application using Docker.',
-            backstory=dedent("""\
-					You are a DevOps Engineer specialized in containerizing applications
-					and deploying them using Docker. You ensure that the application 
-					runs smoothly in isolated environments and manage the CI/CD pipeline.
-				"""),
+            llm=self.Ollama,
+            tools=[repl_tool],  # Ensure tools are correctly passed
             allow_delegation=False,
             verbose=True
         )
 
     def qa_engineer_agent(self):
-        logging.info("Creating Software Quality Control Engineer Agent")
+        logging.info("Creating Chatbot QA Engineer Agent")
         return Agent(
-            role='Software Quality Control Engineer',
-            goal='Create perfect code by analyzing the code for errors',
+            role='Chatbot QA Engineer',
+            goal='Ensure the chatbot functions correctly and provides accurate responses.',
             backstory=dedent("""\
-                You are a software engineer specializing in checking code for errors.
+                You are a QA Engineer specializing in testing chatbots.
                 You have an eye for detail and a knack for finding hidden bugs.
-                You check for missing imports, variable declarations, mismatched
-                brackets, and syntax errors. You also check for security vulnerabilities
-                and logic errors.
+                You check for response accuracy, user interaction flow, and overall performance.
             """),
+            llm=self.Ollama,
+            tools=[repl_tool],
             allow_delegation=False,
             verbose=True
         )
-
-    def chief_qa_engineer_agent(self):
-        logging.info("Creating Chief Software Quality Control Engineer Agent")
-        return Agent(
-            role='Chief Software Quality Control Engineer',
-            goal='Ensure that the code does the job it is supposed to do',
-            backstory=dedent("""\
-                You believe that programmers often do only half the job, so you are
-                dedicated to ensuring high-quality code.
-            """),
-            allow_delegation=True,
-            verbose=True
-        )
-
-    def dev_ops_qa_agent2(self):
-        logging.info("Creating Software Quality Control Engineer Agent")
-        return Agent(
-            role='Software Quality Control Engineer',
-            goal='Create perfect code by analyzing the code for errors',
-            backstory=dedent("""\
-                You are a software engineer specializing in checking code for errors.
-                You have an eye for detail and a knack for finding hidden bugs.
-                You check for missing imports, variable declarations, mismatched
-                brackets, and syntax errors. You also check for security vulnerabilities
-                and logic errors.
-            """),
-            allow_delegation=False,
-            verbose=True
-        )
-
 
     def product_manager_agent(self):
-        logging.info("Creating Product Manager Agent")
+        logging.info("Creating Chatbot Product Manager Agent")
         return Agent(
-            role='Product Manager',
-            goal='Oversee the development and deployment of the application, delegating tasks as needed.',
+            role='Chatbot Product Manager',
+            goal='Oversee the development and deployment of the chatbot, delegating tasks as needed.',
             backstory=dedent("""\
-                    You are a Product Manager responsible for overseeing the entire development process
-                    of the application. Your role involves ensuring that the project stays on track, 
-                    meets the business requirements, and is delivered on time. You delegate tasks to 
-                    the appropriate team members, manage the timeline, and ensure that quality standards 
-                    are met across all stages of development and deployment.
-                """),
+                You are a Product Manager responsible for overseeing the entire development process
+                of the chatbot. Your role involves ensuring that the project stays on track, 
+                meets the business requirements, and is delivered on time. You delegate tasks to 
+                the appropriate team members, manage the timeline, and ensure that quality standards 
+                are met across all stages of development and deployment.
+            """),
+            llm=self.Ollama,
+            tools=[repl_tool],
             allow_delegation=True,
             verbose=True
         )
 
-
-    def dev_ops_qa_engineer_agent(self, name="DevOps QA Engineer"):
-        logging.info(f"Creating {name} Agent")
+    def data_engineer_agent(self):
+        logging.info("Creating Chatbot Data Engineer Agent")
         return Agent(
-            role=name,
-            goal='Ensure the application is production-ready by analyzing the code for errors and verifying deployment configurations.',
+            role='Chatbot Data Engineer',
+            goal='Prepare and manage data for the chatbot interactions.',
             backstory=dedent("""\
-                You are a DevOps QA Engineer specializing in checking code for errors and ensuring 
-                the application is deployment-ready. You have an eye for detail and a knack for 
-                finding hidden bugs. You are proficient in identifying issues not only in the code 
-                but also in deployment scripts and configurations. You check for missing imports, 
-                variable declarations, mismatched brackets, syntax errors, security vulnerabilities, 
-                and logic errors. Additionally, you review Dockerfiles, CI/CD pipeline scripts, 
-                and other deployment configurations to ensure smooth deployment in production environments.
+                You are a Data Engineer specializing in preparing datasets for chatbots.
+                You ensure that the data used for training and responses is accurate and relevant.
             """),
+            llm=self.Ollama,
+            tools=[repl_tool],
             allow_delegation=False,
             verbose=True
         )
 
-    def qa_engineer_agent2(self):
-        logging.info("Creating Chief Software Quality Control Engineer Agent")
+    def deployment_engineer_agent(self):
+        logging.info("Creating Chatbot Deployment Engineer Agent")
         return Agent(
-            role='Chief Software Quality Control Engineer2',
-            goal='Ensure that the code does the job it is supposed to do',
+            role='Chatbot Deployment Engineer',
+            goal='Deploy the chatbot to production environments.',
             backstory=dedent("""\
-                    You believe that programmers often do only half the job, so you are
-                    dedicated to ensuring high-quality code.
-                """),
-            allow_delegation=True,
+                You are a Deployment Engineer responsible for deploying chatbots.
+                You ensure that the chatbot is accessible to users and runs smoothly in production.
+            """),
+            llm=self.Ollama,
+            tools=[repl_tool],
+            allow_delegation=False,
             verbose=True
         )
+
+    def integration_tester_agent(self):
+        logging.info("Creating Integration Tester Agent")
+        return Agent(
+            role='Integration Tester',
+            goal='Run the Streamlit app and verify its functionality.',
+            backstory=dedent("""\
+                You are an Integration Tester specializing in running applications and verifying their functionality.
+                You ensure that the application works as expected and provides a seamless user experience.
+            """),
+            llm=self.Ollama,
+            tools=[repl_tool],
+            allow_delegation=False,
+            verbose=True
+        )
+
+    def database_engineer_agent(self):
+        logging.info("Creating Database Engineer Agent")
+        return Agent(
+            role='Database Engineer',
+            goal='Set up and manage the database for the chatbot project.',
+            backstory=dedent("""\
+                You are a Database Engineer specializing in setting up and managing databases.
+                You ensure that the data is stored securely and efficiently, and that the database is optimized for performance.
+            """),
+            llm=self.Ollama,
+            tools=[repl_tool],
+            allow_delegation=False,
+            verbose=True
+        )
+
+# Ensure the following libraries are installed
+# pip install crewai langchain-community requests langchain-tools chromadb sqlite3 pandas

@@ -2,14 +2,14 @@ import sqlite3
 import json
 
 class Persistence:
-    def __init__(self, db_path='game_app.db'):
+    def __init__(self, db_path='chatbot_app.db'):
         self.connection = sqlite3.connect(db_path)
         self._create_tables()
 
     def _create_tables(self):
         with self.connection:
             self.connection.execute('''
-                CREATE TABLE IF NOT EXISTS games (
+                CREATE TABLE IF NOT EXISTS chatbots (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     description TEXT NOT NULL
                 )
@@ -26,12 +26,12 @@ class Persistence:
             self.connection.execute('''
                 CREATE TABLE IF NOT EXISTS tasks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    game_id INTEGER,
+                    chatbot_id INTEGER,
                     agent_id INTEGER,
                     description TEXT NOT NULL,
                     expected_output TEXT,
                     result TEXT,
-                    FOREIGN KEY(game_id) REFERENCES games(id),
+                    FOREIGN KEY(chatbot_id) REFERENCES chatbots(id),
                     FOREIGN KEY(agent_id) REFERENCES agents(id)
                 )
             ''')
@@ -44,10 +44,10 @@ class Persistence:
                 )
             ''')
 
-    def save_game(self, description):
+    def save_chatbot(self, description):
         with self.connection:
             cursor = self.connection.execute(
-                'INSERT INTO games (description) VALUES (?)',
+                'INSERT INTO chatbots (description) VALUES (?)',
                 (description,)
             )
             return cursor.lastrowid
@@ -60,11 +60,11 @@ class Persistence:
             )
             return cursor.lastrowid
 
-    def save_task(self, game_id, agent_id, description, expected_output):
+    def save_task(self, chatbot_id, agent_id, description, expected_output):
         with self.connection:
             cursor = self.connection.execute(
-                'INSERT INTO tasks (game_id, agent_id, description, expected_output) VALUES (?, ?, ?, ?)',
-                (game_id, agent_id, description, expected_output)
+                'INSERT INTO tasks (chatbot_id, agent_id, description, expected_output) VALUES (?, ?, ?, ?)',
+                (chatbot_id, agent_id, description, expected_output)
             )
             return cursor.lastrowid
 
@@ -84,7 +84,7 @@ class Persistence:
 
     def get_all_projects(self):
         with self.connection:
-            cursor = self.connection.execute('SELECT * FROM games')
+            cursor = self.connection.execute('SELECT * FROM chatbots')
             projects = cursor.fetchall()
             return [{'id': row[0], 'description': row[1]} for row in projects]
 
