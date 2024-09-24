@@ -18,7 +18,6 @@ from crewai_tools import FileWriterTool
 # Initialize the tool
 file_writer_tool = FileWriterTool()
 
-code_interpreter_tool = CodeInterpreterTool()
 
 # Define the code and libraries used
 # Removed Streamlit import
@@ -32,6 +31,8 @@ logging.basicConfig(level=logging.INFO, filename='agent_logs.log',
 
 python_repl = PythonREPL()
 # You can create the tool to pass to an agent
+
+code_interpreter_tool = CodeInterpreterTool()
 repl_tool = Tool(
     name="python_repl",
     description="A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
@@ -54,7 +55,6 @@ class ChatbotAgents():
                 You strive to create chatbots that are engaging and helpful.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],  # Ensure tools are correctly passed
             allow_delegation=False,
             verbose=True
         )
@@ -70,7 +70,6 @@ class ChatbotAgents():
                 You check for response accuracy, user interaction flow, and overall performance.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -88,7 +87,7 @@ class ChatbotAgents():
                 are met across all stages of development and deployment.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool(), file_writer_tool],
+            tools=[file_writer_tool],
             allow_delegation=True,
             verbose=True
         )
@@ -103,7 +102,6 @@ class ChatbotAgents():
                 You ensure that the data used for training and responses is accurate and relevant.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -118,7 +116,6 @@ class ChatbotAgents():
                 You ensure that the chatbot is accessible to users and runs smoothly in production.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -133,7 +130,6 @@ class ChatbotAgents():
                 You ensure that the application works as expected and provides a seamless user experience.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
@@ -148,7 +144,6 @@ class ChatbotAgents():
                 You ensure that the data is stored securely and efficiently, and that the database is optimized for performance.
             """),
             llm=self.Ollama,
-            tools=[CodeInterpreterTool()],
             allow_delegation=False,
             verbose=True
         )
