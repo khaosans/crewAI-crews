@@ -64,8 +64,3 @@ if __name__ == "__main__":
     print("Final code for the chatbot:")
     print(chatbot)
 
-    # Close persistence connection
-    persistence.close()
-    logging.info("Persistence connection closed. Application finished.")
-
-    # REPL for agent look-up and GitHub search

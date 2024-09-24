@@ -24,7 +24,7 @@ repl_tool = Tool(
 
 class ChatbotAgents():
     def __init__(self):
-        self.Ollama = Ollama(model="Llama3.1")
+        self.Ollama = Ollama(model="llama3.1")
         self.data_ingestion = DataIngestion(data_source='data.csv')
 
     def chatbot_developer_agent(self):
