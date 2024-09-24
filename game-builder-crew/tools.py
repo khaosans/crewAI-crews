@@ -1,5 +1,5 @@
+from crewai_tools import tool
 from langchain_experimental.utilities import PythonREPL
-from crewai.tools import tool
 import os
 
 @tool("Python REPL Tool")
