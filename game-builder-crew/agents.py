@@ -3,7 +3,6 @@ from textwrap import dedent
 from crewai import Agent
 from langchain_community.llms.ollama import Ollama
 import requests
-from data_ingestion import DataIngestion
 
 from langchain_core.tools import Tool
 
@@ -25,7 +24,6 @@ repl_tool = Tool(
 class ChatbotAgents():
     def __init__(self):
         self.Ollama = Ollama(model="llama3.1")
-        self.data_ingestion = DataIngestion(data_source='data.csv')
 
     def chatbot_developer_agent(self):
         logging.info("Creating Chatbot Developer Agent")
