@@ -15,6 +15,8 @@ from langchain_experimental.utilities import PythonREPL
 
 from crewai_tools import FileWriterTool
 
+from tools import code_saver
+
 # Initialize the tool
 file_writer_tool = FileWriterTool()
 
@@ -87,7 +89,7 @@ class ChatbotAgents():
                 are met across all stages of development and deployment.
             """),
             llm=self.Ollama,
-            tools=[file_writer_tool],
+            tools=[code_saver],
             allow_delegation=True,
             verbose=True
         )
