@@ -34,10 +34,10 @@ class ChatbotTasks:
                 Your final answer must be the corrected Python code for the chatbot, only the Python code and nothing else.
             """),
             agent=agent,
-            expected_output="Corrected and error-free Python code for the chatbot that adheres to the provided instructions."
+            expected_output="Corrected and error-free Python code and only python code."
         )
 
-    def review_task(self, agent, description):
+    def review_task(self, agent, description, callback):
         return Task(
             description=dedent(f"""\
                 You are helping create a chatbot, these are the instructions:
@@ -52,24 +52,7 @@ class ChatbotTasks:
                 Your final answer must be the verified Python code for the chatbot, only the Python code and nothing else.
             """),
             agent=agent,
-            expected_output="Verified and fully functional Python code for the chatbot that fulfills the intended purpose."
+            expected_output="Python code and only python code.",
+            callback=callback
         )
 
-    def save_task(self, agent, code, directory):
-        return Task(
-            description=dedent(f"""\
-                You will save the following Python code to a specified directory:
-
-                Code
-                ----
-                {code}
-
-                Directory
-                ---------
-                {directory}
-
-                Your final answer must be a confirmation message indicating that the code has been successfully saved to the directory.
-            """),
-            agent=agent,
-            expected_output="Confirmation message indicating successful saving of the code to the specified directory."
-        )

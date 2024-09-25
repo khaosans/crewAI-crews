@@ -5,6 +5,7 @@ from textwrap import dedent
 
 from crewai import Agent, Crew, Task
 from langchain.agents.agent_toolkits import FileManagementToolkit
+from langchain.llms import Ollama  # {{ edit_1 }} - Importing Ollama LLM
 from tasks import TaskPrompts
 
 from tools.browser_tools import BrowserTools
@@ -112,8 +113,11 @@ class LandingPageCrew():
       selected_tools=["read_file", "list_directory"]
     )
 
+    
+    ollama = Ollama(model="llama3.1")
     self.idea_analyst = Agent(
       **idea_analyst_config,
+      function_calling_llm=ollama,  # {{ edit_1 }}
       verbose=True,
       tools=[
         SearchTools.search_internet,
@@ -123,6 +127,7 @@ class LandingPageCrew():
 
     self.communications_strategist = Agent(
       **strategist_config,
+      llm=ollama,  # {{ edit_2 }}
       verbose=True,
       tools=[
           SearchTools.search_internet,
@@ -132,6 +137,7 @@ class LandingPageCrew():
 
     self.react_developer = Agent(
       **developer_config,
+      llm=ollama,  # {{ edit_3 }}
       verbose=True,
       tools=[
           SearchTools.search_internet,
@@ -144,6 +150,7 @@ class LandingPageCrew():
 
     self.content_editor_agent = Agent(
       **editor_config,
+      llm=ollama,  # {{ edit_4 }}
       tools=[
           SearchTools.search_internet,
           BrowserTools.scrape_and_summarize_website,

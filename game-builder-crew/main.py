@@ -17,6 +17,12 @@ logging.basicConfig(
 )
 
 
+#function to save the output sting to a md file one arg
+def save_output_to_file(output):
+
+    with open("output.md", "w") as file:
+        file.write(str(output))
+
 # Initialize tasks and agents
 tasks = ChatbotTasks()
 agents = ChatbotAgents()
@@ -28,26 +34,23 @@ if __name__ == "__main__":
     print("## Welcome to the Chatbot Crew")
     print('-------------------------------')
     # this part should be input from the application
-    chatbot_description = input(
-        "Describe the chatbot you would like to build. What will be its main functionalities?"
-    )
+    chatbot_description ="streamlit python chatbot app works with open ai gpt-4o-mini"
 
     logging.info('Chatbot description received: {}', chatbot_description)
 
     # Create Agents and save them
     chatbot_developer_agent = agents.chatbot_developer_agent()
     qa_engineer_agent = agents.qa_engineer_agent()
-    product_manager_agent = agents.product_manager_agent()
+    qa_chief = agents.chief_qa_agent()
 
     # Create Tasks and save them
     implement_chatbot = tasks.implement_task(chatbot_developer_agent, chatbot_description)
     test_chatbot = tasks.test_task(qa_engineer_agent, chatbot_description)
-    review_chatbot = tasks.review_task(product_manager_agent, chatbot_description)
-    tasks.save_task(product_manager_agent, chatbot_description, '/Users/Sour/agent-code-folder')
+    review_chatbot = tasks.review_task(qa_chief, chatbot_description, save_output_to_file)
 
     # Create Crew responsible for Chatbot
     crew = Crew(
-        agents=[chatbot_developer_agent, qa_engineer_agent, product_manager_agent],
+        agents=[chatbot_developer_agent, qa_engineer_agent, qa_chief],
         tasks=[implement_chatbot, test_chatbot, review_chatbot],
         verbose=True,
     )

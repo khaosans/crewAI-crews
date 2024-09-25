@@ -15,7 +15,6 @@ from langchain_experimental.utilities import PythonREPL
 
 from crewai_tools import FileWriterTool
 
-from tools import code_saver
 
 # Initialize the tool
 file_writer_tool = FileWriterTool()
@@ -70,85 +69,23 @@ class ChatbotAgents():
                 You are a QA Engineer specializing in testing chatbots.
                 You have an eye for detail and a knack for finding hidden bugs.
                 You check for response accuracy, user interaction flow, and overall performance.
+                You are also a pro python developer.
             """),
             llm=self.Ollama,
             allow_delegation=False,
             verbose=True
         )
 
-    def product_manager_agent(self):
-        logging.info("Creating Chatbot Product Manager Agent")
+    def chief_qa_agent(self):
+        logging.info("Creating Final QA Check Agent")
         return Agent(
-            role='Chatbot Product Manager',
-            goal='Oversee the development and deployment of the chatbot, delegating tasks as needed.',
+            role='Final QA Check',
+            goal='Perform the final quality assurance check before deployment.',
             backstory=dedent("""\
-                You are a Product Manager responsible for overseeing the entire development process
-                of the chatbot. Your role involves ensuring that the project stays on track, 
-                meets the business requirements, and is delivered on time. You delegate tasks to 
-                the appropriate team members, manage the timeline, and ensure that quality standards 
-                are met across all stages of development and deployment.
+                You are responsible for the final quality assurance check of the chatbot.
+                You are also a professional python developer.
             """),
             llm=self.Ollama,
-            tools=[code_saver],
             allow_delegation=True,
             verbose=True
         )
-
-    def data_engineer_agent(self):
-        logging.info("Creating Chatbot Data Engineer Agent")
-        return Agent(
-            role='Chatbot Data Engineer',
-            goal='Prepare and manage data for the chatbot interactions.',
-            backstory=dedent("""\
-                You are a Data Engineer specializing in preparing datasets for chatbots.
-                You ensure that the data used for training and responses is accurate and relevant.
-            """),
-            llm=self.Ollama,
-            allow_delegation=False,
-            verbose=True
-        )
-
-    def deployment_engineer_agent(self):
-        logging.info("Creating Chatbot Deployment Engineer Agent")
-        return Agent(
-            role='Chatbot Deployment Engineer',
-            goal='Deploy the chatbot to production environments.',
-            backstory=dedent("""\
-                You are a Deployment Engineer responsible for deploying chatbots.
-                You ensure that the chatbot is accessible to users and runs smoothly in production.
-            """),
-            llm=self.Ollama,
-            allow_delegation=False,
-            verbose=True
-        )
-
-    def integration_tester_agent(self):
-        logging.info("Creating Integration Tester Agent")
-        return Agent(
-            role='Integration Tester',
-            goal='Run the application and verify its functionality.',  # Removed Streamlit reference
-            backstory=dedent("""\
-                You are an Integration Tester specializing in running applications and verifying their functionality.
-                You ensure that the application works as expected and provides a seamless user experience.
-            """),
-            llm=self.Ollama,
-            allow_delegation=False,
-            verbose=True
-        )
-
-    def database_engineer_agent(self):
-        logging.info("Creating Database Engineer Agent")
-        return Agent(
-            role='Database Engineer',
-            goal='Set up and manage the database for the chatbot project.',
-            backstory=dedent("""\
-                You are a Database Engineer specializing in setting up and managing databases.
-                You ensure that the data is stored securely and efficiently, and that the database is optimized for performance.
-            """),
-            llm=self.Ollama,
-            allow_delegation=False,
-            verbose=True
-        )
-
-# Ensure the following libraries are installed
-# pip install crewai langchain-community requests langchain-tools chromadb sqlite3 pandas
