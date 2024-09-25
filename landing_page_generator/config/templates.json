@@ -1,62 +1,32 @@
 [
   {
-    "name": "Spotlight",
-    "theme": "Personal Website Template",
-    "folder": "tailwindui-spotlight/spotlight-js",
-    "description": "A personal website so nice you’ll actually be inspired to publish on it."
+    "name": "Login",
+    "theme": "User Authentication Template",
+    "folder": "login",
+    "description": "A user-friendly login interface with support for third-party authentication like Google and GitHub."
   },
   {
-    "name": "Protocol",
-    "theme": "API Reference Template",
-    "folder": "tailwindui-protocol/protocol-js",
-    "description": "Probably the nicest API documentation website you've ever seen."
+    "name": "Project Settings",
+    "theme": "Project Management Template",
+    "folder": "project-settings",
+    "description": "A comprehensive project settings interface to manage project details, team members, timelines, and notifications."
   },
   {
-    "name": "Commit",
-    "theme": "Changelog Template",
-    "folder": "tailwindui-commit/commit-js",
-    "description": "Share your work in progress with this beautiful changelog template."
+    "name": "Taskboard",
+    "theme": "Kanban Board Template",
+    "folder": "taskboard",
+    "description": "A dynamic task management interface with draggable tasks, project progress tracking, and task assignments."
   },
   {
-    "name": "Primer",
-    "theme": "Info Product Template",
-    "folder": "tailwindui-primer/primer-js",
-    "description": "A stunning landing page for your first course or ebook."
+    "name": "Profile",
+    "theme": "User Profile Management Template",
+    "folder": "profile",
+    "description": "An intuitive profile management interface where users can update personal details, avatars, and notification preferences."
   },
   {
-    "name": "Studio",
-    "theme": "Agency Template",
-    "folder": "tailwindui-studio/studio-js",
-    "description": "Showcase your work and find new clients with this sophisticated agency template."
-  },
-  {
-    "name": "Salient",
-    "theme": "Template for SaaS products",
-    "folder": "tailwindui-salient/salient-js",
-    "description": "A SaaS landing page to announce your next big product."
-  },
-  {
-    "name": "Transmit",
-    "theme": "Podcast Template",
-    "folder": "tailwindui-transmit/transmit-js",
-    "description": "A clean and professional podcast template fit for any show."
-  },
-  {
-    "name": "Pocket",
-    "theme": "App Marketing Template",
-    "folder": "tailwindui-pocket/pocket-js",
-    "description": "The perfect website template for your exciting new mobile app."
-  },
-  {
-    "name": "Syntax",
-    "theme": "Documentation Template",
-    "folder": "tailwindui-syntax/syntax-js",
-    "description": "Educate your users in style with this documentation template."
-  },
-  {
-    "name": "Keynote",
-    "theme": "Conference / Meetup Template",
-    "folder": "tailwindui-keynote/keynote-js",
-    "description": "Launch your next conference or meetups with a splash with this eye-catching template."
+    "name": "Dashboard",
+    "theme": "User Dashboard Template",
+    "folder": "dashboard",
+    "description": "A responsive dashboard for users to monitor project progress, recent activity, team collaboration, and overall task completion."
   }
 ]

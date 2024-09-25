@@ -1,0 +1,5 @@
+{
+  "security.workspace.trust.untrustedFiles": "open",
+  "python.languageServer": "Pylance",
+  "editor.formatOnSave": true
+}
