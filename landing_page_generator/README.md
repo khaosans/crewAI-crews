@@ -1,8 +1,8 @@
-# AI Crew for Project Management Dashboard
+# AI Crew for Landing Pages
 ## Introduction
-This project is an example using the CrewAI framework to automate the process of managing projects through a comprehensive dashboard. CrewAI orchestrates autonomous AI agents, enabling them to collaborate and execute complex tasks efficiently.
+This project is an example using the CrewAI framework to automate the process of creating landing pages from a single idea. CrewAI orchestrates autonomous AI agents, enabling them to collaborate and execute complex tasks efficiently.
 
-*Disclaimer: Templates are not included as they are Tailwind templates. Place Tailwind individual template folders in `./templates`. If you have a license, you can download them at (https://tailwindui.com/templates). Their references are at `config/templates.json`. This was not tested with other templates; prompts in `tasks.py` might require some changes for that to work.*
+*Disclaimer: Templates are not inlcuded as they are Tailwind templates. Place Tailwind individual template folders in `./templates`, if you have a lincese you can download them at (https://tailwindui.com/templates), their references are at `config/templates.json`, this was not tested this with other templates, prompts in `tasks.py` might require some changes for that to work.*
 
 By [@joaomdmoura](https://x.com/joaomdmoura)
 
@@ -16,21 +16,24 @@ By [@joaomdmoura](https://x.com/joaomdmoura)
 - [License](#license)
 
 ## CrewAI Framework
-CrewAI is designed to facilitate the collaboration of role-playing AI agents. In this example, these agents work together to provide insights and management capabilities through a project management dashboard, allowing users to track project progress, team activities, and upcoming deadlines.
+CrewAI is designed to facilitate the collaboration of role-playing AI agents. In this example, these agents work together to transform an idea into a fully fleshed-out landing page by expanding the idea, choosing a template, and customizing it to fit the concept.
 
 ## Running the Script
-It uses GPT-4 by default, so you should have access to that to run it.
+It uses GPT-4 by default so you should have access to that to run it.
 
-***Disclaimer:** This will use gpt-4 unless you change it not to, and by doing so it will cost you money (~2-9 USD). The full run might take around ~10-45m. Enjoy your time back*
+***Disclaimer:** This will use gpt-4 unless you changed it 
+not to, and by doing so it will cost you money (~2-9 USD).
+The full run might take around ~10-45m. Enjoy your time back*
 
-- **Configure Environment**: Copy `.env.example` and set up the environment variables for [Browseless](https://www.browserless.io/), [Serper](https://serper.dev/), and [OpenAI](https://platform.openai.com/api-keys).
+
+- **Configure Environment**: Copy ``.env.example` and set up the environment variables for [Browseless](https://www.browserless.io/), [Serper](https://serper.dev/) and [OpenAI](https://platform.openai.com/api-keys)
 - **Install Dependencies**: Run `poetry install --no-root`.
-- **Add Tailwind Templates**: Place Tailwind individual template folders in `./templates`. If you have a license, you can download them at (https://tailwindui.com/templates). Their references are at `config/templates.json`. I haven't tested this with other templates; prompts in `tasks.py` might require some changes for that to work.
-- **Execute the Script**: Run `poetry run python main.py` and input your project details.
+- **Add Tailwind Templates**: Place Tailwind individual template folders in `./templates`, if you have a linces you can download them at (https://tailwindui.com/templates), their references are at `config/templates.json`, I haven't tested this with other templates, prompts in `tasks.py` might require some changes for that to work.
+- **Execute the Script**: Run `poetry run python main.py` and input your idea.
 
 ## Details & Explanation
-- **Running the Script**: Execute `python main.py` and input your project details when prompted. The script will leverage the CrewAI framework to process the information and generate a project management dashboard.
-- **Output**: The generated dashboard will be available for user interaction, providing insights into project status and team activities.
+- **Running the Script**: Execute `python main.py`` and input your idea when prompted. The script will leverage the CrewAI framework to process the idea and generate a landing page.
+- **Output**: The generated landing page will be zipped in the a `workdir.zip` file you can download.
 - **Key Components**:
   - `./main.py`: Main script file.
   - `./tasks.py`: Main file with the tasks prompts.
